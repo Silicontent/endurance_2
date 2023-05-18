@@ -1,3 +1,6 @@
+CollisionShape2D
+Sprite2D
+CharacterBody2D
 Timer
 Label
 Control
@@ -11,8 +14,5 @@ PanelContainer
 CanvasLayer
 Camera2D
 Node
-CollisionShape2D
 Node2D
 Area2D
-Sprite2D
-CharacterBody2D

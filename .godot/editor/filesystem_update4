@@ -7,3 +7,7 @@ res://scripts/player/player.gd
 res://scripts/player/move.gd
 res://scripts/player/dash_idle.gd
 res://scripts/ui/hud.gd
+res://scenes/enemies/normal_enemy.tscn
+res://scripts/enemy/enemy.gd
+res://scripts/player/idle.gd
+res://scripts/player/dead.gd
