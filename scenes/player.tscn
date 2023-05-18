@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=3 uid="uid://ds0iritq87es6"]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_btmwo"]
+[ext_resource type="Texture2D" uid="uid://dd25xbx5w8g0s" path="res://assets/player/player.png" id="1_e3i1a"]
+[ext_resource type="PackedScene" uid="uid://25chs1bdhw4k" path="res://scenes/entity_components/killbox_component.tscn" id="2_fswgc"]
+[ext_resource type="PackedScene" uid="uid://boin32yxv735c" path="res://scenes/entity_components/health_component.tscn" id="3_t0cxq"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="4_vdwpw"]
+[ext_resource type="Script" path="res://scripts/player/cooldown_timer.gd" id="5_aiw5t"]
+[ext_resource type="Script" path="res://scripts/player/idle.gd" id="6_kpgen"]
+[ext_resource type="Script" path="res://scripts/player/move.gd" id="7_k2stk"]
+[ext_resource type="Script" path="res://scripts/player/dead.gd" id="8_21gri"]
+[ext_resource type="Script" path="res://scripts/player/dash.gd" id="11_jt0oo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0sihh"]
+size = Vector2(50, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iibwp"]
+size = Vector2(50, 50)
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 12
+motion_mode = 1
+script = ExtResource("1_btmwo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_e3i1a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0sihh")
+
+[node name="KillboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_fswgc")]
+collision_mask = 18
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillboxComponent"]
+shape = SubResource("RectangleShape2D_iibwp")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_t0cxq")]
+MAX_HEALTH = 1.0
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 7.0
+one_shot = true
+script = ExtResource("5_aiw5t")
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="MoveMachine" type="Node" parent="."]
+script = ExtResource("4_vdwpw")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="MoveMachine"]
+script = ExtResource("6_kpgen")
+
+[node name="Move" type="Node" parent="MoveMachine"]
+script = ExtResource("7_k2stk")
+
+[node name="Dash" type="Node" parent="MoveMachine"]
+script = ExtResource("11_jt0oo")
+
+[node name="Dead" type="Node" parent="MoveMachine"]
+script = ExtResource("8_21gri")
+
+[node name="StateDisplay" type="Label" parent="."]
+offset_left = -136.0
+offset_top = -80.0
+offset_right = 136.0
+offset_bottom = -54.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Current state"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CooldownDisplay" type="Label" parent="."]
+offset_left = -120.0
+offset_top = -112.0
+offset_right = 120.0
+offset_bottom = -86.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "7.000000"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="KillboxComponent" to="." method="_on_killbox_body_entered"]
+[connection signal="timeout" from="Cooldown" to="Cooldown" method="_on_timeout"]
+[connection signal="timeout" from="DashTimer" to="MoveMachine/Move" method="_on_dash_timer_timeout"]

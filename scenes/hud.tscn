@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwb561j75mah7"]
+
+[ext_resource type="Texture2D" uid="uid://grrt260ts8c7" path="res://assets/hud/icon_score.png" id="1_3ej8k"]
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_62u6d"]
+[ext_resource type="Texture2D" uid="uid://3btrque0al77" path="res://assets/hud/text_score.png" id="1_yarvp"]
+[ext_resource type="Texture2D" uid="uid://u8fc1khsmsr1" path="res://assets/hud/text_killed.png" id="3_2rj8c"]
+[ext_resource type="Texture2D" uid="uid://cxl3gx4u2ha1n" path="res://assets/hud/icon_killed.png" id="4_2n7xs"]
+[ext_resource type="LabelSettings" uid="uid://wumlvprtrqkm" path="res://assets/font/score_settings.tres" id="5_vnt3t"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_62u6d")
+
+[node name="ScoreGraphics" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="TextureRect" parent="ScoreGraphics"]
+offset_left = 120.0
+offset_top = 113.0
+offset_right = 550.0
+offset_bottom = 153.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_yarvp")
+
+[node name="KilledLabel" type="TextureRect" parent="ScoreGraphics"]
+offset_left = 120.0
+offset_top = 285.0
+offset_right = 550.0
+offset_bottom = 325.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_2rj8c")
+
+[node name="ScoreIcon" type="TextureRect" parent="ScoreGraphics"]
+texture_filter = 1
+offset_left = 35.0
+offset_top = 33.0
+offset_right = 75.0
+offset_bottom = 73.0
+scale = Vector2(3, 3)
+texture = ExtResource("1_3ej8k")
+
+[node name="KilledIcon" type="TextureRect" parent="ScoreGraphics"]
+texture_filter = 1
+offset_left = 35.0
+offset_top = 206.0
+offset_right = 75.0
+offset_bottom = 246.0
+scale = Vector2(3, 3)
+texture = ExtResource("4_2n7xs")
+
+[node name="Score" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 46.0
+offset_right = 460.0
+offset_bottom = 112.0
+text = "1234567890"
+label_settings = ExtResource("5_vnt3t")
+horizontal_alignment = 2
+
+[node name="Killed" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 218.0
+offset_right = 463.0
+offset_bottom = 284.0
+text = "1234567890"
+label_settings = ExtResource("5_vnt3t")
+horizontal_alignment = 2
