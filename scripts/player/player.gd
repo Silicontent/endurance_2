@@ -57,8 +57,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_killbox_body_entered(body):
-	pass
-#	if invulnerable:
-#		body.die()
-#	else:
-#		dead = true
+	if invulnerable:
+		body.queue_free()
+	else:
+		dead = true

@@ -47,20 +47,20 @@ script = ExtResource("5_aiw5t")
 wait_time = 3.0
 one_shot = true
 
-[node name="MoveMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="."]
 script = ExtResource("4_vdwpw")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="MoveMachine"]
+[node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("6_kpgen")
 
-[node name="Move" type="Node" parent="MoveMachine"]
+[node name="Move" type="Node" parent="StateMachine"]
 script = ExtResource("7_k2stk")
 
-[node name="Dash" type="Node" parent="MoveMachine"]
+[node name="Dash" type="Node" parent="StateMachine"]
 script = ExtResource("11_jt0oo")
 
-[node name="Dead" type="Node" parent="MoveMachine"]
+[node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource("8_21gri")
 
 [node name="StateDisplay" type="Label" parent="."]
@@ -84,4 +84,4 @@ horizontal_alignment = 1
 
 [connection signal="body_entered" from="KillboxComponent" to="." method="_on_killbox_body_entered"]
 [connection signal="timeout" from="Cooldown" to="Cooldown" method="_on_timeout"]
-[connection signal="timeout" from="DashTimer" to="MoveMachine/Move" method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="DashTimer" to="StateMachine/Move" method="_on_dash_timer_timeout"]
