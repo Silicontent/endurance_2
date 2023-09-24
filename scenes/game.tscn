@@ -44,20 +44,5 @@ autostart = true
 
 [node name="NormalEnemy" parent="." instance=ExtResource("5_tx5tr")]
 
-[node name="NormalEnemy2" parent="." instance=ExtResource("5_tx5tr")]
-position = Vector2(73, -2)
-
-[node name="NormalEnemy3" parent="." instance=ExtResource("5_tx5tr")]
-position = Vector2(153, 0)
-
-[node name="NormalEnemy4" parent="." instance=ExtResource("5_tx5tr")]
-position = Vector2(232, 0)
-
-[node name="NormalEnemy5" parent="." instance=ExtResource("5_tx5tr")]
-position = Vector2(305, 4)
-
-[node name="NormalEnemy6" parent="." instance=ExtResource("5_tx5tr")]
-position = Vector2(383, 7)
-
 [connection signal="player_dead" from="Player" to="." method="_on_player_dead"]
 [connection signal="timeout" from="SurvivalTimer" to="." method="_on_survival_timer_timeout"]

@@ -1,5 +1,13 @@
-res://scenes/enemies/normal_enemy.tscn
-res://assets/font/score_settings.tres
-res://scenes/player.tscn
-res://scripts/player/player.gd
 res://scenes/game.tscn
+res://scripts/game.gd
+res://scenes/hud.tscn
+res://scenes/player.tscn
+res://scripts/player/dash.gd
+res://scripts/player/player.gd
+res://scripts/player/move.gd
+res://scripts/player/dash_idle.gd
+res://scripts/ui/hud.gd
+res://scenes/enemies/normal_enemy.tscn
+res://scripts/enemy/enemy.gd
+res://scripts/player/idle.gd
+res://scripts/player/dead.gd
