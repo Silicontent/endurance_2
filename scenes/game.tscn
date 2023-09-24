@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://crbeo7i0ye5d5"]
+[gd_scene load_steps=7 format=3 uid="uid://crbeo7i0ye5d5"]
 
 [ext_resource type="Texture2D" uid="uid://dffccyrwgiylh" path="res://assets/bg/bg_whiteCheckerboard.png" id="1_2i1jo"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_js83e"]
 [ext_resource type="PackedScene" uid="uid://ds0iritq87es6" path="res://scenes/player.tscn" id="2_auqqf"]
 [ext_resource type="PackedScene" uid="uid://bwb561j75mah7" path="res://scenes/hud.tscn" id="4_2btlh"]
-[ext_resource type="PackedScene" uid="uid://cc4mrtovbxr02" path="res://scenes/enemies/normal_enemy.tscn" id="5_tx5tr"]
+[ext_resource type="Script" path="res://scripts/enemy_manager.gd" id="5_uj57j"]
+[ext_resource type="PackedScene" uid="uid://cc4mrtovbxr02" path="res://scenes/enemies/normal_enemy.tscn" id="6_fyjqf"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_js83e")
@@ -22,7 +23,7 @@ region_rect = Rect2(0, 0, 5760, 3240)
 position = Vector2(960, 540)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.9, 0.9)
+zoom = Vector2(0.7, 0.7)
 limit_left = -1920
 limit_top = -1080
 limit_right = 3840
@@ -31,10 +32,10 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
-drag_left_margin = 0.5
-drag_top_margin = 0.5
-drag_right_margin = 0.5
-drag_bottom_margin = 0.5
+drag_left_margin = 0.3
+drag_top_margin = 0.3
+drag_right_margin = 0.3
+drag_bottom_margin = 0.3
 
 [node name="SurvivalTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -42,7 +43,13 @@ autostart = true
 
 [node name="HUD" parent="." instance=ExtResource("4_2btlh")]
 
-[node name="NormalEnemy" parent="." instance=ExtResource("5_tx5tr")]
+[node name="EnemyManager" type="Node2D" parent="." node_paths=PackedStringArray("player_ref")]
+script = ExtResource("5_uj57j")
+player_ref = NodePath("../Player")
+
+[node name="NormalEnemy" parent="EnemyManager" instance=ExtResource("6_fyjqf")]
+position = Vector2(-691, 557)
 
 [connection signal="player_dead" from="Player" to="." method="_on_player_dead"]
 [connection signal="timeout" from="SurvivalTimer" to="." method="_on_survival_timer_timeout"]
+[connection signal="killed" from="EnemyManager" to="." method="_on_enemy_killed"]

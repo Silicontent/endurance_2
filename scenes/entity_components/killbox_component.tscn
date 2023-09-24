@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://25chs1bdhw4k"]
-
-[ext_resource type="Script" path="res://scripts/components/killbox_component.gd" id="1_tfk4n"]
-
-[node name="KillboxComponent" type="Area2D"]
-script = ExtResource("1_tfk4n")

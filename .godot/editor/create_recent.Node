@@ -1,8 +1,11 @@
+Node2D
+Node
+Label
+Area2D
 CollisionShape2D
+Timer
 Sprite2D
 CharacterBody2D
-Timer
-Label
 Control
 TextureRect
 Button
@@ -13,6 +16,3 @@ Container
 PanelContainer
 CanvasLayer
 Camera2D
-Node
-Node2D
-Area2D

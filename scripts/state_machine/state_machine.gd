@@ -18,37 +18,44 @@ signal transitioned(state_name)
 @onready var state: State = get_node(initial_state)
 
 
+# DEFINED FUNCTIONS ======================================================
+# transition to different states under the state machine
+func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
+	# checks to see if the targeted state exists
+	if not has_node(target_state_name):
+		return
+	
+	# leave the current state
+	state.exit()
+	# get a reference to the targeted state
+	state = get_node(target_state_name)
+	# enter the state with an optional message
+	state.enter(msg)
+	# emit a signal saying that we have transitioned states
+	emit_signal("transitioned", state.name)
+
+
+# RUNNING FUNCTIONS ======================================================
 func _ready() -> void:
 	await(owner.ready)
 	# gets all states under StateMachine and sets their "state_machine" property
 	# to this node
 	for child in get_children():
 		child.state_machine = self
+	# enter the initial state specified
 	state.enter()
 
 
-# sends input events to the state's handle_input func
-# the same occurs for the _process() and _physics_process() functions
+# sends unhandled input to the state to deal with
 func _unhandled_input(event: InputEvent) -> void:
 	state.handle_input(event)
 
 
+# runs the state's "process" function instead
 func _process(delta: float) -> void:
 	state.update(delta)
 
 
+# runs the state's "physics_process" function instead
 func _physics_process(delta: float) -> void:
 	state.physics_update(delta)
-
-
-# calls current state's exit() function, changes the active state, then calls the new state's
-# enter() function
-# optionally passes "msg" parameter to new state's enter() function
-func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
-	if not has_node(target_state_name):
-		return
-	
-	state.exit()
-	state = get_node(target_state_name)
-	state.enter(msg)
-	emit_signal("transitioned", state.name)
